@@ -24,6 +24,9 @@ class Post(PostBase):
     owner_id: int
     owner: User # returns pydantic model User
 
+class PostOut(BaseModel):
+    Post: Post
+    votes: int
 
 class UserCreate(BaseModel):
     email: EmailStr
