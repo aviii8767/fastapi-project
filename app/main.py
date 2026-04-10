@@ -6,7 +6,9 @@ from .config import settings
 
 # print(settings.database_username)
 
-models.Base.metadata.create_all(bind=engine)
+# models.Base.metadata.create_all(bind=engine) this is now no more needed due to alembic
+# This command told sqlalchemy to run the create statement so that it will generate all tables when it first started up
+
 
 app = FastAPI()
 

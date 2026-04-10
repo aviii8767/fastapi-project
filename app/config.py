@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    #List of Env Variables
+    #List of Env Variables, pydantic class
     database_hostname: str
     database_port: int
     database_password: str
