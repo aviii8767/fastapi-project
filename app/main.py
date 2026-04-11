@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from . import models
 from .database import engine
 from .routers import post,user,auth,vote
@@ -11,6 +13,19 @@ from .config import settings
 
 
 app = FastAPI()
+
+origins = ["https://www.google.com", "https://www.youtube.com"]
+#origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 app.include_router(post.router)# i want to include post.routers
 app.include_router(user.router)# if we change sequence here that also reflect in documentation
