@@ -1,7 +1,24 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from datetime import datetime
 from typing import Optional
 from typing import Literal
+
+
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
+
+class User(BaseModel):
+    id: int
+    email: EmailStr
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
 
 
 class PostBase(BaseModel):
@@ -9,9 +26,11 @@ class PostBase(BaseModel):
     content: str
     published: bool = True
     
+
 # format for post create user input
 class PostCreate(PostBase):
     pass
+
 
 #this is output format for response
 class Post(PostBase):
@@ -24,24 +43,14 @@ class Post(PostBase):
     owner_id: int
     owner: User # returns pydantic model User
 
+    model_config = ConfigDict(from_attributes=True)
+
+
 class PostOut(BaseModel):
     Post: Post
     votes: int
 
-class UserCreate(BaseModel):
-    email: EmailStr
-    password: str
-
-class User(BaseModel):
-    id: int
-    email: EmailStr
-    created_at: datetime
-
-
-class UserLogin(BaseModel):
-    email: EmailStr
-    password: str
-
+    model_config = ConfigDict(from_attributes=True)
 
 class Token(BaseModel):
     access_token: str
